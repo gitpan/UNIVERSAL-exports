@@ -43,11 +43,30 @@ sub eqarray  {
 }
 
 # Change this to your # of ok() calls + 1
-BEGIN { $Total_tests = 5 }
+BEGIN { $Total_tests = 9 }
 
 use lib qw(t);
 
-ok( eval { Dummy->require; 1 } );
-ok( $Dummy::VERSION );
-ok( eval { Dummy->require(0.4); 1 } );
-ok( !eval { Dummy->require(1.0); 1 } );
+ok( Dummy->require == 23,                       'require()' );
+ok( $UNIVERSAL::require::ERROR eq '',           '  $ERROR empty' );
+ok( $Dummy::VERSION,                            '  $VERSION ok' );
+
+{
+    $SIG{__WARN__} = sub { warn @_ 
+                             unless $_[0] =~ /^Subroutine \w+ redefined/ };
+    delete $INC{'Dummy.pm'};
+    ok( Dummy->require(0.4) == 23,                  'require($version)' );
+    ok( $UNIVERSAL::require::ERROR eq '',           '  $ERROR empty' );
+
+    delete $INC{'Dummy.pm'};
+    ok( !Dummy->require(1.0),                       'require($version) fail' );
+    ok( $UNIVERSAL::require::ERROR =~ 
+        /^Dummy version 1 required--this is only version 0.5/ );
+}
+
+{
+    my $warning = '';
+    local $SIG{__WARN__} = sub { $warning = join '', @_ };
+    eval 'use UNIVERSAL';
+    ok( $warning eq '',     'use UNIVERSAL doesnt interfere' );
+}

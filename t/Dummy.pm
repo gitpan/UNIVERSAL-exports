@@ -9,3 +9,5 @@ sub foo { 42 }
 sub bar { 23 }
 
 sub car { "yarblockos" }
+
+return 23;

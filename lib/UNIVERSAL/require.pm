@@ -1,6 +1,10 @@
 package UNIVERSAL::require;
-$UNIVERSAL::require::VERSION = '0.01';
+$UNIVERSAL::require::VERSION = '0.03';
 
+# We do this because UNIVERSAL.pm uses CORE::require().  We're going
+# to put our own require() into UNIVERSAL and that makes an ambiguity.
+# So we load it up beforehand to avoid that.
+BEGIN { require UNIVERSAL }
 
 package UNIVERSAL;
 
@@ -53,13 +57,17 @@ someone who's not a ninth level Perl acolyte.
 
 =item B<require>
 
-  $module->require;
-  $module->require($version);
+  my $return_val = $module->require;
+  my $return_val = $module->require($version);
 
 This works exactly like Perl's require, except without the bareword
-restriction.  Since require() is placed in the UNIVERSAL namespace, it
-will work on B<any> module.  You just have to use UNIVERSAL::require
-somewhere in your code.
+restriction, and it doesn't die.  Since require() is placed in the
+UNIVERSAL namespace, it will work on B<any> module.  You just have to
+use UNIVERSAL::require somewhere in your code.
+
+Should the module require fail, or not be a high enough $version, it
+will simply return false and B<not die>.  The error will be in
+$UNIVERSAL::require::ERROR.
 
 =back
 
@@ -79,6 +87,8 @@ http://dev.perl.org/rfc/253.pod
 sub require {
     my($module, $want_version) = @_;
 
+    $UNIVERSAL::require::ERROR = '';
+
     die("UNIVERSAL::require() can only be run as a class method")
       if ref $module; 
 
@@ -90,14 +100,18 @@ sub require {
     # Check for module load failure.
     if( $@ ) {
         $@ =~ s/ at .*?\n$//;
-        die sprintf "$@ at %s line %d.\n", (caller)[1,2];
+        $UNIVERSAL::require::ERROR = sprintf "$@ at %s line %d.\n", 
+                                            (caller)[1,2];
+        return 0;
     }
 
     # Module version check.  We can't just call UNIVERSAL->VERSION
     # and let it die because the file and line numbers will be wrong.
     if( @_ == 2 and !eval { $module->VERSION($want_version); 1 } ) {
         $@ =~ s/ at .*?\n$//;
-        die sprintf "$@ at %s line %d\n", (caller)[1,2];
+        $UNIVERSAL::require::ERROR = sprintf "$@ at %s line %d\n", 
+                                             (caller)[1,2];
+        return 0;
     }
 
     return $return;

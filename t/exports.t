@@ -43,7 +43,7 @@ sub eqarray  {
 }
 
 # Change this to your # of ok() calls + 1
-BEGIN { $Total_tests = 14 }
+BEGIN { $Total_tests = 16 }
 
 use lib qw(t);
 
@@ -88,3 +88,13 @@ use Dummy qw(bar);
 ::ok( Dummy->exports('bar') );
 ::ok( !Dummy->exports('car') );
 ::ok( !Dummy->exports(007) );
+
+
+package Test5;
+
+use Dummy 0.5;
+::ok(1);        # if we don't explode, we're ok.
+
+
+eval "use Dummy 99";
+::ok($@ =~ /Dummy version 99 required--this is only version/);

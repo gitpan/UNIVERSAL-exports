@@ -1,4 +1,11 @@
 Change log for UNIVERSAL::exports and UNIVERSAL::require
 
+0.03 Sun Dec 16 21:51:58 EST 2001
+    - Moved UNIVERSAL::exports import functionality to Exporter::Lite
+    - Fixed a little nit when "use UNIVERSAL" is involved.
+
+0.02 Mon Jun 25 15:00:19 EDT 2001
+    * -->API CHANGE!<-- require() no longer dies on failure
+
 0.01 Mon Jan 22 11:06:50 EST 2001
-* First version, adapted from the Perl 6 RFC prototypes 253 and 257.
+    * First version, adapted from the Perl 6 RFC prototypes 253 and 257.
