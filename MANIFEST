@@ -1,0 +1,8 @@
+Changes
+MANIFEST
+Makefile.PL
+lib/UNIVERSAL/exports.pm
+lib/UNIVERSAL/require.pm
+t/Dummy.pm
+t/exports.t
+t/require.t

@@ -1,0 +1,4 @@
+Change log for UNIVERSAL::exports and UNIVERSAL::require
+
+0.01 Mon Jan 22 11:06:50 EST 2001
+* First version, adapted from the Perl 6 RFC prototypes 253 and 257.
