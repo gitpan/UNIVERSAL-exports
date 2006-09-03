@@ -1,5 +1,5 @@
 package UNIVERSAL::exports;
-$UNIVERSAL::exports::VERSION = '0.03';
+$UNIVERSAL::exports::VERSION = '0.04';
 
 
 package UNIVERSAL;
@@ -96,14 +96,30 @@ wasn't recognized).
 
 =back
 
-
 =head1 AUTHORS
 
 Michael G Schwern <schwern@pobox.com>
 
+=head1 BUGS and ISSUES
+
+Please report bugs and issues via L<http://rt.cpan.org>
+
+=head1 LICENSE and COPYRIGHT
+
+Copyright 2001, 2006 Michael G Schwern
+
+This program is free software; you can redistribute it and/or modify it under the same terms as Perl itself.
+
+See L<http://www.perl.com/perl/misc/Artistic.html>
+
 =head1 SEE ALSO
 
-L<Exporter>, L<UNIVERSAL::require>, http://dev.perl.org/rfc/257.pod
+Other ways to Export: L<Exporter>, L<Exporter::Lite>,
+L<Sub::Exporter>, L<Exporter::Simple>
+
+The Perl 6 RFC that started it all:  L<http://dev.perl.org/rfc/257.pod>
+
+More UNIVERSAL magic:  L<UNIVERSAL::require>
 
 =cut
 

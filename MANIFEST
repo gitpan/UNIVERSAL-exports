@@ -1,8 +1,7 @@
 Changes
-MANIFEST
-Makefile.PL
 lib/UNIVERSAL/exports.pm
-lib/UNIVERSAL/require.pm
+Makefile.PL
+MANIFEST			This list of files
 t/Dummy.pm
 t/exports.t
-t/require.t
+META.yml                                 Module meta-data (added by MakeMaker)
