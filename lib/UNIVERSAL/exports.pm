@@ -1,8 +1,10 @@
 package UNIVERSAL::exports;
-$UNIVERSAL::exports::VERSION = '0.04';
+$UNIVERSAL::exports::VERSION = '0.05';
 
 
 package UNIVERSAL;
+
+use strict;
 use Exporter::Lite qw(import);
 
 =head1 NAME
@@ -67,8 +69,13 @@ reports if it will export a given $symbol.
 sub exports {
     my($exporter) = shift;
 
-    my %exports = map { $_ => 1 } @{$exporter.'::EXPORT'}, 
-                                  @{$exporter.'::EXPORT_OK'};
+    my %exports;
+
+    {
+        no strict 'refs';
+        %exports = map { $_ => 1 } @{$exporter.'::EXPORT'},
+                                   @{$exporter.'::EXPORT_OK'};
+    }
 
     if( @_ ) {
         return exists $exports{$_[0]};

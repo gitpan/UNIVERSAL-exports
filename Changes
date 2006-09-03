@@ -1,16 +1,20 @@
-0.04
+0.05  Sun Sep  3 17:52:06 EDT 2006
+    - Convert tests from ancient ad-hoc to Test::More.
+    - Turn on strictyness.
+
+0.04  Sun Sep  3 17:31:46 EDT 2006
     - Removed UNIVERSAL::require from distribution.  It is now in its own
       distribution.
     - Added copyright and license info
     - Added link to rt.cpan.org for tracking.
     - Added extended SEE ALSO to other Exporter-like things.
 
-0.03 Sun Dec 16 21:51:58 EST 2001
+0.03  Sun Dec 16 21:51:58 EST 2001
     - Moved UNIVERSAL::exports import functionality to Exporter::Lite
     - Fixed a little nit when "use UNIVERSAL" is involved.
 
-0.02 Mon Jun 25 15:00:19 EDT 2001
+0.02  Mon Jun 25 15:00:19 EDT 2001
     * -->API CHANGE!<-- require() no longer dies on failure
 
-0.01 Mon Jan 22 11:06:50 EST 2001
+0.01  Mon Jan 22 11:06:50 EST 2001
     * First version, adapted from the Perl 6 RFC prototypes 253 and 257.
